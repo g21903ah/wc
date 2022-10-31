@@ -5,26 +5,39 @@
   <title>Digital Clock</title>
 </head>
 <body onload="strClock();">
-  <div id="pos"></div>
+  <div id="date"></div>
+  <div id="time"></div>
   <script type="text/javascript">
  
-    // 時刻取得関数
-    function getTime() {
-      var now = new Date();
-      var hh = ('0' + now.getHours()).slice(-2);
-      var mm = ('0' + now.getMinutes()).slice(-2);
-      var ss = ('0' + now.getSeconds()).slice(-2);
-      nowtime = hh + ":" + mm + ":" + ss;
-      var id1 = document.getElementById('pos');
-      id1.style.fontSize = "32pt";
-      id1.style.color = "red";
-      id1.innerHTML = nowtime;
-    }
+    setInterval(function(){
+    const date1 = document.querySelector("#date");
+    const time = document.querySelector("#time");
+    let date = new Date();
+    let month = date.getMonth();
+    let day = date.getDate();
+    const days = ["日","月","火","水","木","金","土",];
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    let day_night = "AM";
  
-    // 開始関数
-    function strClock() {
-      setInterval("getTime();", 1000);
+    if(hours > 12){
+        day_night = "PM"
+        hours = hours - 12;
     }
+    if(hours < 10){
+        hours = "0" + hours;
+    }
+    if(minutes < 10){
+        minutes = "0" + minutes;
+    }
+    if(seconds < 10){
+        seconds = "0" + seconds;
+    }
+    date1.textContent = month+"/"+ day +"("+days[date.getDay()]+")";
+    time.textContent = hours + ":" + minutes + ":" + seconds + " " + day_night;
+    });
+
   </script>
 </body>
 </html>
